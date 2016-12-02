@@ -96,7 +96,7 @@ class BaseHandler:
             
         for i in range(SENDMAIL_RETRY_CNT+1):
             try:
-                mail.send_mail(SRC_EMAIL, to, "KindleEar %s" % lctime, "Deliver from KindleEar",
+                mail.send_mail(SRC_EMAIL, to, "convert", "Deliver from KindleEar",
                     attachments=[(filename, attachment),])
             except OverQuotaError as e:
                 default_log.warn('overquota when sendmail to %s:%s' % (to, str(e)))
@@ -143,14 +143,14 @@ class BaseHandler:
             try:
                 if attachments:
                     if html:
-                        mail.send_mail(SRC_EMAIL, to, title, textcontent, html=html, attachments=attachments)
+                        mail.send_mail(SRC_EMAIL, to, "convert", textcontent, html=html, attachments=attachments)
                     else:
-                        mail.send_mail(SRC_EMAIL, to, title, textcontent, attachments=attachments)
+                        mail.send_mail(SRC_EMAIL, to, "convert", textcontent, attachments=attachments)
                 else:
                     if html:
-                        mail.send_mail(SRC_EMAIL, to, title, textcontent, html=html)
+                        mail.send_mail(SRC_EMAIL, to, "convert", textcontent, html=html)
                     else:
-                        mail.send_mail(SRC_EMAIL, to, title, textcontent)
+                        mail.send_mail(SRC_EMAIL, to, "convert", textcontent)
             except OverQuotaError as e:
                 default_log.warn('overquota when sendmail to %s:%s' % (to, str(e)))
                 self.deliverlog(name, str(to), title, 0, tz=tz, status='over quota')
